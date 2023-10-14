@@ -14,6 +14,7 @@ export async function register(data: RegisterInput): Promise<Result<PublicUser>>
     name: data.name,
     email: data.email,
     password: hash,
+    taxId: `${data.taxId.type}:${data.taxId.number}`
   });
   await newUser.save();
 
@@ -22,6 +23,7 @@ export async function register(data: RegisterInput): Promise<Result<PublicUser>>
       _id: newUser._id.toString(),
       name: newUser.name,
       email: newUser.email,
+      taxId: data.taxId,
     },
   }
 }

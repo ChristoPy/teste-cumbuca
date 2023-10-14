@@ -12,8 +12,16 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
           name: { type: 'string' },
           email: { type: 'string' },
           password: { type: 'string' },
+          taxId: {
+            type: 'object',
+            properties: {
+              type: { type: 'string', enum: ['CPF', 'CNPJ'] },
+              number: { type: 'string' }
+            },
+            required: ['type', 'number']
+          },
         },
-        required: ['name', 'email', 'password'],
+        required: ['name', 'email', 'password', 'taxId'],
       },
     },
     handler: async function (request, reply) {

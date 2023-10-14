@@ -3,6 +3,7 @@ import db from "../database";
 
 export interface TaxId {
   type: 'CPF' | 'CNPJ'
+  number: string
 }
 
 export interface User {

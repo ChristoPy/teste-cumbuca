@@ -1,6 +1,6 @@
 import { compareSync } from 'bcrypt';
 import { sign } from 'jsonwebtoken'
-import { UserModel } from "../../models/user";
+import { TaxId, UserModel } from "../../models/user";
 import { LoginInput, LoginResult } from "./types";
 import { Result } from '../../models/result';
 
@@ -16,6 +16,13 @@ export async function login(data: LoginInput): Promise<Result<LoginResult>> {
   }
 
   const token = sign({ _id: user._id }, process.env.JWT_SECRET as string, { expiresIn: '1d' });
+  const parts = user.taxId.split
+  const taxId: TaxId = {
+    // @ts-ignore
+    type: parts[0] as TaxId['type'],
+    // @ts-ignore
+    number: parts[1] as string
+  }
 
   return {
     data: {
@@ -24,6 +31,7 @@ export async function login(data: LoginInput): Promise<Result<LoginResult>> {
         _id: user._id.toString(),
         name: user.name,
         email: user.email,
+        taxId,
       }
     },
   }
