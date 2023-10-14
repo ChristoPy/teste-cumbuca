@@ -1,6 +1,8 @@
 import { join } from 'path';
 import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload';
 import { FastifyPluginAsync } from 'fastify';
+import Swagger from '@fastify/swagger';
+import SwaggerUI from '@fastify/swagger-ui';
 import './database';
 
 export type AppOptions = {
@@ -17,6 +19,8 @@ const app: FastifyPluginAsync<AppOptions> = async (
   opts
 ): Promise<void> => {
   // Place here your custom code!
+  void fastify.register(Swagger)
+  void fastify.register(SwaggerUI)
 
   // Do not touch the following lines
 
