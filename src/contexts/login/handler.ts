@@ -10,9 +10,7 @@ async function handler(fastify: FastifyInstance, request: FastifyRequest, reply:
     return;
   }
 
-
   fastify.redis.set(data!.token, JSON.stringify(data!.user), 'EX', 86400);
-  fastify.queues.example.add('example', { example: 42 })
   reply.status(200).send(data);
 }
 
