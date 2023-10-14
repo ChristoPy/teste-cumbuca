@@ -2,11 +2,12 @@ import { hashSync } from 'bcrypt';
 import { PublicUser, UserModel } from "../../models/user";
 import { RegisterInput } from "./types";
 import { Result } from '../../models/result';
+import { verifyUserExists } from '../rules/core';
 
 export async function register(data: RegisterInput): Promise<Result<PublicUser>> {
-  const user = await UserModel.findOne({ email: data.email });
-  if (user) {
-    return { error: 'E-mail alrady in use' }
+  const userExists = await verifyUserExists(data);
+  if (userExists.error) {
+    return { error: userExists.error }
   }
 
   const hash = hashSync(data.password, 30);
