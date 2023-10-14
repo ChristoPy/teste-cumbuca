@@ -16,12 +16,10 @@ export async function login(data: LoginInput): Promise<Result<LoginResult>> {
   }
 
   const token = sign({ _id: user._id }, process.env.JWT_SECRET as string, { expiresIn: '1d' });
-  const parts = user.taxId.split
+  const parts = user.taxId.split(':')
   const taxId: TaxId = {
-    // @ts-ignore
     type: parts[0] as TaxId['type'],
-    // @ts-ignore
-    number: parts[1] as string
+    number: parts[1]
   }
 
   return {
