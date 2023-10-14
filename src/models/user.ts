@@ -29,7 +29,7 @@ export const UserSchema = new Schema({
   password: { type: String, required: true },
   taxId: { type: String, required: true, unique: true },
   createdAt: { type: Number, default: Date.now },
-  updatedAt: { type: Number, default: Date.now },
+  updatedAt: { type: Number },
 });
 
 export const UserModel = db.model("User", UserSchema);
