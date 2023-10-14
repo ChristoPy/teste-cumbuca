@@ -1,10 +1,10 @@
-import { hashSync } from 'bcrypt';
-import { PublicUser, UserModel } from "../../models/user";
-import { RegisterInput } from "./types";
+import { RegisterInput, RegisterResult } from "./types";
 import { Result } from '../../models/result';
 import { validateUserTaxId, verifyUserExists } from '../rules/core';
+import { createUser } from "../create-user/core";
+import { createWallet } from "../create-wallet/core";
 
-export async function register(data: RegisterInput): Promise<Result<PublicUser>> {
+export async function register(data: RegisterInput): Promise<Result<RegisterResult>> {
   const userExists = await verifyUserExists(data);
   if (userExists.error) {
     return { error: userExists.error }
@@ -14,21 +14,13 @@ export async function register(data: RegisterInput): Promise<Result<PublicUser>>
     return { error: userTaxId.error }
   }
 
-  const hash = hashSync(data.password, 30);
-  const newUser = await UserModel.create({
-    name: data.name,
-    email: data.email,
-    password: hash,
-    taxId: `${data.taxId.type}:${data.taxId.number}`
-  });
-  await newUser.save();
+  const userResult = await createUser(data)
+  const walletResult = await createWallet(userResult.data!._id)
 
   return {
     data: {
-      _id: newUser._id.toString(),
-      name: newUser.name,
-      email: newUser.email,
-      taxId: data.taxId,
-    },
+      user: userResult.data!,
+      wallet: walletResult.data!,
+    }
   }
 }
