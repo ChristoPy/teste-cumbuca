@@ -32,7 +32,7 @@ export async function login(data: LoginInput): Promise<Result<LoginResult>> {
     data: {
       token,
       user: {
-        _id: user._id.toString(),
+        _id: user.id,
         name: user.name,
         email: user.email,
         taxId,
