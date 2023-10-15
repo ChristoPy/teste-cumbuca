@@ -4,7 +4,7 @@ import { PublicUser, UserModel } from '../../models/user';
 import { RegisterInput } from "../register/types";
 
 export async function createUser(data: RegisterInput): Promise<Result<PublicUser>> {
-  const hash = hashSync(data.password, 30);
+  const hash = hashSync(data.password, 10);
   const newUser = await UserModel.create({
     name: data.name,
     email: data.email,
