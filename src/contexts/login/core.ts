@@ -39,7 +39,7 @@ export async function login(data: LoginInput): Promise<Result<LoginResult>> {
       },
       wallet: {
         _id: wallet.id,
-        amount: wallet.id
+        amount: wallet.amount
       }
     },
   }
