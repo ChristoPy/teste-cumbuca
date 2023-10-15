@@ -1,4 +1,5 @@
 import { PublicUser } from "../../models/user";
+import { PublicWallet } from "../../models/wallet";
 
 export interface LoginInput {
   email: string;
@@ -8,4 +9,5 @@ export interface LoginInput {
 export interface LoginResult {
   token: string;
   user: PublicUser;
+  wallet: PublicWallet;
 }
