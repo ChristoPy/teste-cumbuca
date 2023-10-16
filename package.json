@@ -33,7 +33,7 @@
     "fastify-cli": "^5.7.1",
     "fastify-plugin": "^4.0.0",
     "mongoose": "^7.5.2",
-    "nanoid": "^5.0.2"
+    "nanoid": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
