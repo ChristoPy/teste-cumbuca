@@ -9,7 +9,10 @@ async function handler(fastify: FastifyInstance, request: FastifyRequest, reply:
     owner: request.user._id
   })
 
-  return { amount: request.wallet.amount }
+  const newAmount = request.wallet.amount + amount
+  fastify.redis.set(`wallet:${request.wallet._id}`, JSON.stringify({ ...request.wallet, amount: newAmount }));
+
+  return { amount: newAmount }
 }
 
 export default handler;
