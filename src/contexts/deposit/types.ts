@@ -3,3 +3,7 @@ export interface DepositInput {
   wallet: string;
   amount: number;
 }
+
+export interface DepositResult {
+  _id: string;
+}

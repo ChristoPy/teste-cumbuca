@@ -28,7 +28,7 @@ export const TransactionSchema = new Schema({
   wallet: { type: Schema.Types.ObjectId, ref: 'Wallet', required: true },
   amount: { type: Number, required: true },
   type: { type: String, enum: ['deposit', 'transfer', 'withdraw'], required: true },
-  status: { type: String, enum: ['pending', 'done', 'failed'], default: 'pending' },
+  status: { type: String, enum: ['pending', 'done', 'failed'], required: true },
   createdAt: { type: Number, default: Date.now },
   updatedAt: { type: Number },
 });
