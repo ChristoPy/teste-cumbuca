@@ -14,14 +14,7 @@ export async function deposit(data: DepositInput, context: FastifyInstance): Pro
 
   await transaction.save()
 
-  context.queues.transactions.add(`${transaction.id}:deposit`, {
-    _id: transaction.id,
-    amount: data.amount,
-    owner: data.owner,
-    wallet: data.wallet,
-    type: 'deposit',
-    status: 'pending'
-  })
+  context.queues.transactions.add(`${transaction.id}:deposit`, { _id: transaction.id })
 
   return {
     data: {
