@@ -33,7 +33,7 @@ export function validateUserTaxId(data: RegisterInput): Result<true> {
   return { data: true }
 }
 
-export function validateRefund(data: RefundInput, transaction: TransactionData): Result<true> {
+export function validateRefund(transaction: TransactionData): Result<true> {
   const validations = [
     transaction.status === 'refunded',
     transaction.status === 'failed',

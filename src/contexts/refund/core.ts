@@ -15,7 +15,7 @@ export async function refund(data: RefundInput, context: FastifyInstance): Promi
     };
   }
 
-  const validation = validateRefund(data, { status: transaction.status, type: transaction.type })
+  const validation = validateRefund({ status: transaction.status, type: transaction.type })
   if (validation.error) {
     return { error: validation.error }
   }
