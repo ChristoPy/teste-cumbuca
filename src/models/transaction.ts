@@ -11,6 +11,7 @@ export interface Transaction {
   amount: number;
   type: TransactionType;
   status: TransactionStatus;
+  refund: boolean;
   createdAt: number;
   updatedAt: number | undefined;
 }
@@ -29,6 +30,7 @@ export const TransactionSchema = new Schema({
   amount: { type: Number, required: true },
   type: { type: String, enum: ['deposit', 'transfer', 'withdraw'], required: true },
   status: { type: String, enum: ['pending', 'done', 'failed'], required: true },
+  refund: { type: Boolean, required: false, default: false },
   createdAt: { type: Number, default: Date.now },
   updatedAt: { type: Number },
 });
