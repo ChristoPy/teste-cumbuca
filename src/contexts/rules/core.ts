@@ -2,6 +2,8 @@ import { cpf, cnpj } from 'cpf-cnpj-validator';
 import { Result } from "../../models/result";
 import { UserModel } from "../../models/user";
 import { RegisterInput } from "../register/types";
+import { RefundInput } from '../refund/types';
+import { TransactionData } from './types';
 
 export async function verifyUserExists(data: RegisterInput): Promise<Result<true>> {
   const existingUser = await UserModel.findOne({
@@ -26,6 +28,22 @@ export function validateUserTaxId(data: RegisterInput): Result<true> {
 
   if (data.taxId.type === 'CNPJ' && !cnpj.isValid(data.taxId.number)) {
     return { error: 'Invalid CNPJ' }
+  }
+
+  return { data: true }
+}
+
+export function validateRefund(data: RefundInput, transaction: TransactionData): Result<true> {
+  const validations = [
+    transaction.status === 'refunded',
+    transaction.status === 'failed',
+    transaction.type === 'withdraw'
+  ]
+
+  if (validations.some(validation => validation)) {
+    return {
+      error: "Transaction cannot be refunded",
+    };
   }
 
   return { data: true }
