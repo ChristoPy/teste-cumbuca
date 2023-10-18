@@ -1,11 +1,15 @@
-import { parse } from "date-fns";
 import { ListTransactionsInput, ListTransactionsResult } from "./types";
 import { TransactionModel } from "../../models/transaction";
 import { Result } from "../../models/result";
+import { validatePeriod } from "../rules/core";
 
 export async function listTransactions(data: ListTransactionsInput): Promise<Result<ListTransactionsResult>> {
-  const startDate = parse(data.startDate, "dd/MM/yyyy", new Date());
-  const endDate = parse(data.endDate, "dd/MM/yyyy", new Date());
+  const period = validatePeriod(data)
+  if (period.error) {
+    return { error: period.error }
+  }
+
+  const { startDate, endDate } = period.data!
 
   const transactions = await TransactionModel.find({
     owner: data.owner,

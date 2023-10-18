@@ -1,8 +1,9 @@
 import { cpf, cnpj } from 'cpf-cnpj-validator';
+import { parse, isMatch, isAfter } from "date-fns";
 import { Result } from "../../models/result";
 import { UserModel } from "../../models/user";
 import { RegisterInput } from "../register/types";
-import { TransactionData } from './types';
+import { PeriodData, PeriodResult, TransactionData } from './types';
 
 export async function verifyUserExists(data: RegisterInput): Promise<Result<true>> {
   const existingUser = await UserModel.findOne({
@@ -46,4 +47,35 @@ export function validateRefund(transaction: TransactionData): Result<true> {
   }
 
   return { data: true }
+}
+
+export function validatePeriod(data: PeriodData): Result<PeriodResult> {
+  if (!isMatch(data.startDate, "dd/MM/yyyy")) {
+    return {
+      error: 'Invalid startDate'
+    }
+  }
+  if (!isMatch(data.endDate, "dd/MM/yyyy")) {
+    return {
+      error: 'Invalid endDate'
+    }
+  }
+
+  const result = {
+    startDate: parse(data.startDate, "dd/MM/yyyy", new Date()),
+    endDate: parse(data.endDate, "dd/MM/yyyy", new Date()),
+  }
+
+  if (!isAfter(result.endDate, result.startDate)) {
+    return {
+      error: 'Invalid endDate, it should be after startDate'
+    }
+  }
+
+  return {
+    data: {
+      startDate: parse(data.startDate, "dd/MM/yyyy", new Date()),
+      endDate: parse(data.endDate, "dd/MM/yyyy", new Date()),
+    }
+  }
 }
