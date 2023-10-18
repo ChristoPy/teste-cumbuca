@@ -2,7 +2,6 @@ import { cpf, cnpj } from 'cpf-cnpj-validator';
 import { Result } from "../../models/result";
 import { UserModel } from "../../models/user";
 import { RegisterInput } from "../register/types";
-import { RefundInput } from '../refund/types';
 import { TransactionData } from './types';
 
 export async function verifyUserExists(data: RegisterInput): Promise<Result<true>> {
