@@ -14,6 +14,7 @@ export default async function ({ job, fastify }: ProcessorInjectedContext<Transa
   const wallet = await WalletModel.findOne({ _id: transaction.wallet })
   if (!wallet) {
     transaction.status = 'failed'
+    transaction.updatedAt = Date.now()
     transaction.save()
 
     throw new Error('Wallet not found for transaction ID: ' + transaction.wallet)
@@ -27,6 +28,7 @@ export default async function ({ job, fastify }: ProcessorInjectedContext<Transa
   }
 
   transaction.status = 'done'
+  transaction.updatedAt = Date.now()
 
   wallet.save()
   transaction.save()
