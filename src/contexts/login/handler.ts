@@ -6,7 +6,7 @@ async function handler(fastify: FastifyInstance, request: FastifyRequest, reply:
   const { error, data } = await login(request.body as LoginInput)
 
   if (error) {
-    reply.status(401).send({ message: error });
+    reply.status(401).send({ error });
     return;
   }
 
