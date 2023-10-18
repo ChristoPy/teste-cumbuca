@@ -20,15 +20,22 @@ export default async function ({ job, fastify }: ProcessorInjectedContext<Transa
     throw new Error('Wallet not found for transaction ID: ' + transaction.wallet)
   }
 
-  if (transaction.type === 'deposit' && transaction.refund === false) {
-    wallet.amount += transaction.amount
-  }
-  if (transaction.type === 'withdraw' && transaction.refund === false) {
+  if (transaction.refund) {
     wallet.amount -= transaction.amount
+    transaction.status = 'refunded'
+  } else {
+    if (transaction.type === 'deposit') {
+      wallet.amount += transaction.amount
+    }
+    if (transaction.type === 'withdraw') {
+      wallet.amount -= transaction.amount
+    }
+  
+    transaction.status = 'done'
   }
 
-  transaction.status = 'done'
   transaction.updatedAt = Date.now()
+  wallet.updatedAt = Date.now()
 
   wallet.save()
   transaction.save()
