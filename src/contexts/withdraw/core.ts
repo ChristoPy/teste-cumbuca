@@ -12,8 +12,6 @@ export async function withdraw(data: WithdrawInput, context: FastifyInstance): P
     }
   }
 
-  console.log(data.amount, wallet.amount, data.amount > wallet.amount)
-
   if (data.amount > wallet.amount) {
     return {
       error: 'Insuficient funds'
