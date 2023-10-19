@@ -16,6 +16,7 @@ Repo for Cumbuca test for Software Developer
 - Fastify
 - MongoDB
 - Redis
+- Bull
 - TypeScript
 - NodeJS
 
