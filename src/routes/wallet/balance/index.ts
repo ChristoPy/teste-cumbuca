@@ -1,5 +1,5 @@
 import { FastifyPluginAsync, RouteOptions } from "fastify"
-import handler from "../../../contexts/get-wallet-amount/handler"
+import handler from "../../../contexts/get-wallet-balance/handler"
 import { validateToken } from "../../../middlewares/auth"
 
 const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {

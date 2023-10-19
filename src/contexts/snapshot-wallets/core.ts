@@ -15,12 +15,7 @@ export async function snapshotWallets(context: FastifyInstance) {
   const timestamp = Date.now()
   const snapshot = await SnapshotModel.create({
     createdAt: timestamp,
-    wallets: wallets.map(({ id, amount }) => {
-      return {
-        _id: id,
-        balance: amount
-      }
-    })
+    wallets
   })
   snapshot.save()
 

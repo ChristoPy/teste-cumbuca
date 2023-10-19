@@ -21,14 +21,14 @@ export default async function ({ job, fastify }: ProcessorInjectedContext<Transa
   }
 
   if (transaction.refund) {
-    wallet.amount -= transaction.amount
+    wallet.balance -= transaction.amount
     transaction.status = 'refunded'
   } else {
     if (transaction.type === 'deposit') {
-      wallet.amount += transaction.amount
+      wallet.balance += transaction.amount
     }
     if (transaction.type === 'withdraw') {
-      wallet.amount -= transaction.amount
+      wallet.balance -= transaction.amount
     }
   
     transaction.status = 'done'

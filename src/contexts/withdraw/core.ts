@@ -12,7 +12,7 @@ export async function withdraw(data: WithdrawInput, context: FastifyInstance): P
     }
   }
 
-  if (data.amount > wallet.amount) {
+  if (data.amount > wallet.balance) {
     return {
       error: 'Insufficient funds'
     }

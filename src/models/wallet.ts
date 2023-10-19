@@ -4,19 +4,19 @@ import db from "../database";
 export interface Wallet {
   _id: ObjectId;
   owner: ObjectId;
-  amount: number;
+  balance: number;
   createdAt: number;
   updatedAt: number;
 }
 
 export interface PublicWallet {
   _id: string;
-  amount: number;
+  balance: number;
 }
 
 export const WalletSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  amount: { type: Number, default: 0 },
+  balance: { type: Number, default: 0 },
   createdAt: { type: Number, default: Date.now },
   updatedAt: { type: Number },
 });

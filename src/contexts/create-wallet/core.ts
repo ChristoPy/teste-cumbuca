@@ -8,7 +8,7 @@ export async function createWallet(owner: string): Promise<Result<PublicWallet>>
   return {
     data: {
       _id: newWallet.id,
-      amount: newWallet.amount
+      balance: newWallet.balance
     }
   }
 }
