@@ -3,28 +3,28 @@ import db from "../database";
 
 export interface Snapshot {
   _id: ObjectId;
-  timestamp: number;
-  wallets: SnapshotWallet;
+  createdAt: number;
+  wallets: WalletSnapshot;
 }
 
-export interface SnapshotWallet {
-  wallet: ObjectId;
+export interface WalletSnapshot {
+  _id: ObjectId;
   balance: number;
 }
 
 export interface PublicSnapshot {
   _id: string;
-  wallets: SnapshotWallet[];
+  wallets: WalletSnapshot[];
 }
 
-const WalletBalanceSchema = new Schema({
-  wallet: { type: Schema.Types.ObjectId, ref: 'Wallet', required: true },
+const WalletSnapshotSchema = new Schema({
+  _id: { type: Schema.Types.ObjectId, ref: 'Wallet', required: true },
   balance: { type: Number, required: true },
 });
 
 export const SnapshotSchema = new Schema({
-  timestamp: { type: Number, required: true },
-  wallets: [WalletBalanceSchema],
+  createdAt: { type: Number, required: true },
+  wallets: [WalletSnapshotSchema],
 });
 
 export const SnapshotModel = db.model("Snapshot", SnapshotSchema);
