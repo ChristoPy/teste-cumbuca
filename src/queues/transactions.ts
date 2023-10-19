@@ -37,6 +37,8 @@ export default async function ({ job, fastify }: ProcessorInjectedContext<Transa
   transaction.updatedAt = Date.now()
   wallet.updatedAt = Date.now()
 
-  wallet.save()
-  transaction.save()
+  await wallet.save()
+  await transaction.save()
+
+  fastify.redis.set(`wallet:${wallet.id}`, JSON.stringify({ _id: wallet.id, balance: wallet.balance }));
 }
