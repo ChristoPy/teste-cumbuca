@@ -8,6 +8,7 @@ export interface Transaction {
   _id: ObjectId;
   owner: ObjectId;
   wallet: ObjectId;
+  receiver?: ObjectId;
   amount: number;
   type: TransactionType;
   status: TransactionStatus;
@@ -27,6 +28,7 @@ export interface PublicTransaction {
 export const TransactionSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   wallet: { type: Schema.Types.ObjectId, ref: 'Wallet', required: true },
+  receiver: { type: Schema.Types.ObjectId, ref: 'Wallet', required: false },
   amount: { type: Number, required: true },
   type: { type: String, enum: ['deposit', 'transfer', 'withdraw'], required: true },
   status: { type: String, enum: ['pending', 'done', 'failed', 'refunded'], required: true },
