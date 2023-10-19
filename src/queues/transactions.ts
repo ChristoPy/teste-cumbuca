@@ -15,22 +15,62 @@ export default async function ({ job, fastify }: ProcessorInjectedContext<Transa
   if (!wallet) {
     transaction.status = 'failed'
     transaction.updatedAt = Date.now()
-    transaction.save()
+    await transaction.save()
 
     throw new Error('Wallet not found for transaction ID: ' + transaction.wallet)
   }
 
   if (transaction.refund) {
+    const receiverWallet = await WalletModel.findOne({ _id: transaction.receiver })
+    if (!receiverWallet) {
+      transaction.status = 'failed'
+      transaction.updatedAt = Date.now()
+      await transaction.save()
+
+      throw new Error('Receiver wallet not found for transfer.')
+    }
+    
     wallet.balance -= transaction.amount
+    receiverWallet.balance += transaction.amount
+    
     transaction.status = 'refunded'
+
+    wallet.updatedAt = Date.now()
+    receiverWallet.updatedAt = Date.now()
+
+    await receiverWallet.save()
+  } else if (transaction.type === 'transfer') {
+    if (wallet.balance < transaction.amount) {
+      transaction.status = 'failed'
+    } else {
+      const receiverWallet = await WalletModel.findOne({ _id: transaction.receiver })
+      if (!receiverWallet) {
+        transaction.status = 'failed'
+        transaction.updatedAt = Date.now()
+        await transaction.save()
+
+        throw new Error('Receiver wallet not found for transfer.')
+      }
+
+      wallet.balance -= transaction.amount
+      receiverWallet.balance += transaction.amount
+
+      transaction.status = 'done'
+
+      receiverWallet.updatedAt = Date.now()
+      await receiverWallet.save()
+    }
   } else {
     if (transaction.type === 'deposit') {
       wallet.balance += transaction.amount
     }
     if (transaction.type === 'withdraw') {
-      wallet.balance -= transaction.amount
+      if (wallet.balance < transaction.amount) {
+        transaction.status = 'failed'
+      } else {
+        wallet.balance -= transaction.amount
+      }
     }
-  
     transaction.status = 'done'
   }
 
