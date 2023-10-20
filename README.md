@@ -8,6 +8,7 @@ Repo for Cumbuca test for Software Developer
 - [x] Deposit
 - [x] Transfer
 - [x] Withdraw
+- [x] Refund
 - [x] Snapshot of wallet funds
 - [ ] Rollback Wallets
 - [x] List Transactions
@@ -32,3 +33,5 @@ Repo for Cumbuca test for Software Developer
 - **List Transactions:**
   - **startDate** and **endDate** should be valid dates
   - **startDate** should come first than **endDate**
+- **Refund:**
+  - **transaction** should be a transaction of type `transfer` and not have a status of `refunded`
