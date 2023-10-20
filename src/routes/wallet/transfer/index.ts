@@ -11,7 +11,7 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         type: 'object',
         properties: {
           amount: { type: 'number', minimum: 1 },
-          receiver: { type: 'string', minimum: 24, maximum: 24 },
+          receiver: { type: 'string', maxLength: 24, minLength: 24 },
         },
         required: ['amount', 'receiver'],
       },
