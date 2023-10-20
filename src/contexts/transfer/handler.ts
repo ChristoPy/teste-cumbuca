@@ -10,7 +10,7 @@ async function handler(fastify: FastifyInstance, request: FastifyRequest, reply:
     owner: request.user._id
   }, fastify)
 
-  return result.data!
+  return result.error ? result : result.data
 }
 
 export default handler;
