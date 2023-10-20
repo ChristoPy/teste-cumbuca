@@ -6,9 +6,9 @@ Repo for Cumbuca test for Software Developer
 - [x] Authentication 
 - [x] Authorization
 - [x] Deposit
-- [ ] Transfer
+- [x] Transfer
 - [x] Withdraw
-- [ ] Snapshot of wallet funds
+- [x] Snapshot of wallet funds
 - [ ] Rollback Wallets
 - [x] List Transactions
 
