@@ -35,6 +35,7 @@ export function validateUserTaxId(data: RegisterInput): Result<true> {
 
 export function validateRefund(transaction: TransactionData): Result<true> {
   const validations = [
+    transaction.status === 'pending',
     transaction.status === 'refunded',
     transaction.status === 'failed',
     transaction.type === 'withdraw'
