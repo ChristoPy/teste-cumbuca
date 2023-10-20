@@ -38,7 +38,8 @@ export function validateRefund(transaction: TransactionData): Result<true> {
     transaction.status === 'pending',
     transaction.status === 'refunded',
     transaction.status === 'failed',
-    transaction.type === 'withdraw'
+    transaction.type === 'withdraw',
+    transaction.type === 'deposit',
   ]
 
   if (validations.some(validation => validation)) {

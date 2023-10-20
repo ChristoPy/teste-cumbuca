@@ -20,6 +20,9 @@ export async function refund(data: RefundInput, context: FastifyInstance): Promi
     return { error: validation.error }
   }
 
+  transaction.refund = true
+  await transaction.save()
+
   context.queues.transactions.add(`${data.transaction}:refund`, { _id: data.transaction })
 
   return {

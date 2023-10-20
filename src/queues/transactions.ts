@@ -29,9 +29,9 @@ export default async function ({ job, fastify }: ProcessorInjectedContext<Transa
 
       throw new Error('Receiver wallet not found for transfer.')
     }
-    
-    wallet.balance -= transaction.amount
-    receiverWallet.balance += transaction.amount
+
+    wallet.balance += transaction.amount
+    receiverWallet.balance -= transaction.amount
     
     transaction.status = 'refunded'
 
