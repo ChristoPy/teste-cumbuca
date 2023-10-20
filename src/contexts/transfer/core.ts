@@ -5,10 +5,22 @@ import { Result } from "../../models/result";
 import { WalletModel } from "../../models/wallet";
 
 export async function transfer(data: TransferInput, context: FastifyInstance): Promise<Result<TransferResult>> {
+  const wallet = await WalletModel.findOne({ _id: data.wallet })
+  if (!wallet) {
+    return {
+      error: 'Could not find wallet'
+    }
+  }
   const receiver = await WalletModel.findOne({ _id: data.receiver })
   if (!receiver) {
     return {
       error: "Could not find receiver Wallet"
+    }
+  }
+
+  if (data.amount > wallet.balance) {
+    return {
+      error: 'Insufficient funds'
     }
   }
 
