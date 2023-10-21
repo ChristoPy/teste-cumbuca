@@ -10,7 +10,7 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       body: {
         type: 'object',
         properties: {
-          transaction: { type: 'string' },
+          transaction: { type: 'string', maxLength: 24, minLength: 24 },
         },
         required: ['transaction'],
       },
