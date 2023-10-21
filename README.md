@@ -10,7 +10,8 @@ Repo for Cumbuca test for Software Developer
 - [x] Withdraw
 - [x] Refund
 - [x] Snapshot of wallet funds
-- [ ] Rollback Wallets
+- [x] List snapshots
+- [x] Rollback Wallets based on a snapshot
 - [x] List Transactions
 
 ## Tech stack
