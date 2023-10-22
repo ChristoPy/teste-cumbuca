@@ -36,3 +36,5 @@ Repo for Cumbuca test for Software Developer
   - **startDate** should come first than **endDate**
 - **Refund:**
   - **transaction** should be a transaction of type `transfer` and not have a status of `refunded`
+- **Rollback Transactions:**
+  - **snapshot** should exist and all wallets that where snapshotted will be reversed to that point in time
