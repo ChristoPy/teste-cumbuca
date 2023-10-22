@@ -3,11 +3,7 @@ import { SnapshotModel } from "../../models/snapshot";
 import { Result } from "../../models/result";
 
 export async function listSnapshots(data: ListSnapshotsInput): Promise<Result<ListSnapshotsResult>> {
-  const snapshots = await SnapshotModel.find({
-    owner: data.owner,
-    wallet: data.wallet,
-  })
-    .sort({ createdAt: 1 });
+  const snapshots = await SnapshotModel.find().sort({ createdAt: 1 });
 
   if (!snapshots) {
     return {
