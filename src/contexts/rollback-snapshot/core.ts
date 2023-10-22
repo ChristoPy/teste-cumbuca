@@ -3,7 +3,7 @@ import { FastifyInstance } from "fastify";
 import { Result } from "../../models/result";
 import { SnapshotModel } from "../../models/snapshot";
 
-export async function refund(data: RollbackSnapshotInput, context: FastifyInstance): Promise<Result<RollbackSnapshotResult>> {
+export async function rollback(data: RollbackSnapshotInput, context: FastifyInstance): Promise<Result<RollbackSnapshotResult>> {
   const snapshot = await SnapshotModel.findOne({ _id: data.snapshot });
 
   if (!snapshot) {
