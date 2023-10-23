@@ -30,6 +30,8 @@ Repo for Cumbuca test for Software Developer
 - **Authentication:**
   - the credentials must be right
   - a token is generated and can't be forged
+- **Transfer:**
+  - can't transfer if the amount is larger than the wallet funds or **wallet** does not exists
 - **Withdraw:**
   - can't withdraw if the amount is larger than the wallet funds
 - **List Transactions:**
