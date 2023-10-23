@@ -1,5 +1,6 @@
 # teste-cumbuca
-Repo for Cumbuca test for Software Developer
+Repo for Cumbuca test for Software Developer  
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/5947775-4ef4ea91-3346-431a-92e7-271abe771cab?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D5947775-4ef4ea91-3346-431a-92e7-271abe771cab%26entityType%3Dcollection%26workspaceId%3Da37de996-d57f-4b97-bc19-edeabe221492)
 
 ## Features
 - [x] Register
